@@ -25,7 +25,7 @@ end
 action :create do
   set_updated do
     file new_resource.path do
-      if node['platform'] == 'windows'
+      if node['platform_family'] == 'windows'
         rights :full_control, node['consul']['service_user'], :applies_to_children => true
       else
         user node['consul']['service_user']

@@ -58,8 +58,8 @@ end
 
 # Create service group
 group "consul service group: #{consul_group}" do
-  not_if { consul_group == 'root' && node['platform'] != 'windows'}
-  not_if { consul_group == 'Administrators' && node['platform'] == 'windows'}
+  not_if { consul_group == 'root' && node['platform_family'] != 'windows'}
+  not_if { consul_group == 'Administrators' && node['platform_family'] == 'windows'}
   group_name consul_group
   members consul_user
   system node['consul']['system_account']
@@ -69,7 +69,7 @@ end
 # Create service directories
 consul_directories.uniq.each do |dirname|
   directory dirname do
-    if node['platform'] == 'windows'
+    if node['platform_family'] == 'windows'
       rights :full_control, node['consul']['service_user'], :applies_to_children => true
       recursive true
     else
@@ -80,10 +80,11 @@ consul_directories.uniq.each do |dirname|
   end
 
   execute "chown -R #{consul_user}:#{consul_group} #{dirname}" do
-    not_if { node['platform'] == 'windows' }
+    not_if { node['platform_family'] == 'windows' }
     only_if do
-      Etc.getpwuid(File.stat(dirname).uid).name != consul_user or
-        Etc.getgrgid(File.stat(dirname).gid).name != consul_group
+		if node['platform_family'] == 'windows' false 
+        Etc.getpwuid(File.stat(dirname).uid).name != consul_user or
+          Etc.getgrgid(File.stat(dirname).gid).name != consul_group
     end
   end
 end
