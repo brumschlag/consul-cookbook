@@ -149,8 +149,9 @@ additional_options.each do |option|
   end
 end
 
-copy_params = [:bind_addr, :datacenter, :domain, :log_level, :node_name, :advertise_addr, :ports, :enable_syslog, :statsd_addr]
-
+copy_params = [
+  :bind_addr, :datacenter, :domain, :log_level, :node_name, :advertise_addr, :ports, :enable_syslog, :statsd_addr
+]
 copy_params.each do |key|
   if node['consul'][key]
     if key == :ports
@@ -228,7 +229,7 @@ file consul_config_filename do
   action :create
   content JSON.pretty_generate(service_config, quirks_mode: true)
   # https://github.com/johnbellone/consul-cookbook/issues/72
-  notifies :restart, "service[consul]", :immediately
+  notifies :restart, "service[consul]"
 end
 
 case node['consul']['init_style']
