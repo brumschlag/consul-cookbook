@@ -82,6 +82,7 @@ default['consul']['logfile'] = '/var/log/consul.log'
 default['consul']['init_style'] = 'init'   # 'init', 'runit', 'systemd'
 case node['platform_family']
 when 'windows'
+  default['consul']['service_mode']  = 'client'
   default['consul']['install_method'] = 'windows'
   default['consul']['init_style']     = 'windows'
   default['consul']['config_dir']     = "#{ENV['SystemDrive']}\\ProgramData\\consul\\config"
