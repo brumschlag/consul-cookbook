@@ -30,5 +30,5 @@ depends 'yum-repoforge'
 depends 'packagecloud'
 
 # for windows
-depends 'windows'
+depends "windows", '~> 1.38.2'
 depends "chocolatey"
