@@ -26,7 +26,7 @@ recommends 'chef-provisioning'
 depends 'libarchive', ">= 0.6.0"
 depends 'golang', '~> 1.4'
 depends 'runit'
-depends 'yum-repoforge'
+depends 'yum-repoforge', "= 3.0.0"
 depends 'packagecloud'
 
 # for windows
