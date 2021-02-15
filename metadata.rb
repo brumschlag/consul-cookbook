@@ -28,6 +28,9 @@ depends 'golang', '~> 1.4'
 depends 'runit'
 depends 'yum-repoforge', "= 3.0.0"
 depends 'packagecloud'
+depends 'yum', "= 3.6.3"
+depends 'yum-epel', "= 3.3.0"
+
 
 # for windows
 depends "windows", '~> 1.38.2'
